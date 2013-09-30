@@ -5,10 +5,8 @@ import mcpi.minecraft as minecraft
 import mcpi.block as block
 
 mc = minecraft.Minecraft.create()
-mc_blockTypeId = 0
-mc_x = 0.0
-mc_y = 0.0
-mc_z = 0.0
+mc_blockTypeId = 1
+mc_x = mc_y = mc_z = None
 
 @start
 def whenstart(scratch):
@@ -40,12 +38,20 @@ def update_blockTypeId(scratch, value):
 
 @broadcast('setBlock')
 def setBlock(scratch):
-  print u"setBlock: %d %d %d %d" % (mc_x, mc_y, mc_z, mc_blockTypeId)
-  mc.setBlock(mc_x, mc_y, mc_z, mc_blockTypeId)
+  pos = mc.player.getTilePos()
+  x = mc_x or pos.x
+  y = mc_y or pos.y
+  z = mc_z or pos.z
+  print u"setBlock: %d %d %d %d" % (x, y, z, mc_blockTypeId)
+  mc.setBlock(x, y, z, mc_blockTypeId)
 
 @broadcast('setPos')
 def setPos(scratch):
-  print u"setPos: %d %d %d" % (mc_x, mc_y, mc_z)
-  mc.player.setPos(mc_x, mc_y, mc_z)
+  pos = mc.player.getTilePos()
+  x = mc_x or pos.x
+  y = mc_y or pos.y
+  z = mc_z or pos.z
+  print u"setPos: %d %d %d" % (x, y, z)
+  mc.player.setPos(x, y, z)
 
 run()
