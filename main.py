@@ -1,56 +1,35 @@
 #!/usr/bin/env python
-
-from scratra import *
+import scratch
 import mcpi.minecraft as minecraft
-import mcpi.block as block
 
 mc = minecraft.Minecraft.create()
-mc_blockTypeId = 1
-mc_x = 0.0
-mc_y = 0.0
-mc_z = 0.0
+s = scratch.Scratch()
+x = 0
+y = 0
+z = 0
+blockTypeId = 1
 
-@start
-def whenstart(scratch):
-  print "start"
+def listen():
+  while True:
+    try:
+      yield s.receive()
+    except scratch.ScratchError:
+      raise StopIteration
 
-@broadcast('hi')
-def hi(scratch):
-  mc.postToChat("hi minecraft")
+for msg in listen():
+  if msg[0] == 'broadcast':
+    if msg[1] == 'hi':
+      mc.postToChat("hi minecraft")
+    elif msg[1] == 'p':
+      mc.player.setPos(x, y, z)
+      print "setPos: %d %d %d" % (x, y, z)
+    elif msg[1] == 'b':
+      mc.setBlock(x, y, z, blockTypeId)
+      print "setBlock: %d %d %d %d" % (x, y, z, blockTypeId)
+  elif msg[0] == 'sensor-update':
+    x = msg[1].get('x', x)
+    y = msg[1].get('y', y)
+    z = msg[1].get('z', z)
+    blockTypeId = msg[1].get('b', blockTypeId)
+    print "x:%d,y:%d,z:%d" % (x, y, z)
 
-@update('x')
-def update_x(scratch, value):
-  global mc_x
-  mc_x = value
-
-@update('y')
-def update_y(scratch, value):
-  global mc_y
-  mc_y = value
-
-@update('z')
-def update_z(scratch, value):
-  global mc_z
-  mc_z = value
-
-@update('b')
-def update_blockTypeId(scratch, value):
-  global mc_blockTypeId
-  mc_blockTypeId = value
-
-@broadcast('b')
-def setBlock(scratch):
-  print u"setBlock: %d %d %d %d" % (mc_x, mc_y, mc_z, mc_blockTypeId)
-  mc.setBlock(mc_x, mc_y, mc_z, mc_blockTypeId)
-
-@broadcast('p')
-def setPos(scratch):
-  print u"setPos: %d %d %d" % (mc_x, mc_y, mc_z)
-  mc.player.setPos(mc_x, mc_y, mc_z)
-
-@broadcast('getPos')
-def getPos(scratch):
-  pos = mc.player.getTilePos()
-  mc.postToChat(u"Player Position: %d %d %d" % (pos.x, pos.y, pos.z))
-
-run()
