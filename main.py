@@ -5,7 +5,7 @@ import mcpi.minecraft as minecraft
 import mcpi.block as block
 
 mc = minecraft.Minecraft.create()
-mc_blockTypeId = 0
+mc_blockTypeId = 1
 mc_x = 0.0
 mc_y = 0.0
 mc_z = 0.0
@@ -33,17 +33,17 @@ def update_z(scratch, value):
   global mc_z
   mc_z = value
 
-@update('blockTypeId')
+@update('b')
 def update_blockTypeId(scratch, value):
   global mc_blockTypeId
   mc_blockTypeId = value
 
-@broadcast('setBlock')
+@broadcast('b')
 def setBlock(scratch):
   print u"setBlock: %d %d %d %d" % (mc_x, mc_y, mc_z, mc_blockTypeId)
   mc.setBlock(mc_x, mc_y, mc_z, mc_blockTypeId)
 
-@broadcast('setPos')
+@broadcast('p')
 def setPos(scratch):
   print u"setPos: %d %d %d" % (mc_x, mc_y, mc_z)
   mc.player.setPos(mc_x, mc_y, mc_z)
