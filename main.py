@@ -48,4 +48,9 @@ def setPos(scratch):
   print u"setPos: %d %d %d" % (mc_x, mc_y, mc_z)
   mc.player.setPos(mc_x, mc_y, mc_z)
 
+@broadcast('getPos')
+def getPos(scratch):
+  pos = mc.player.getTilePos()
+  mc.postToChat(u"Player Position: %d %d %d" % (pos.x, pos.y, pos.z))
+
 run()
