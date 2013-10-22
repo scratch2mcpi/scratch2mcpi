@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
 
 from scratra import *
 import mcpi.minecraft as minecraft
