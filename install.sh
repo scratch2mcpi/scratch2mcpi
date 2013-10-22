@@ -6,7 +6,7 @@ rm /tmp/master.zip
 if test -d /home/pi/mcpi/api/python/mcpi; then
   cp -r /home/pi/mcpi/api/python/mcpi scratch2minecraft/
 else
-  echo "Unable to copy 'mcpi' directory to 'scratch2minecraft'. You should manually copy '[minecraft pi dir]/api/python/mcpi' to 'scratch2minecraft'."
+  echo "\033[31m\033[1mError: Unable to copy 'mcpi' directory to 'scratch2minecraft'. You should manually copy '[minecraft pi dir]/api/python/mcpi' to 'scratch2minecraft'.\033[00m"
 fi
 echo "Installation of scratch2minecraft is completed."
 
