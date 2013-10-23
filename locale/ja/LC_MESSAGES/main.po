@@ -1,0 +1,11 @@
+#: main.py:14
+msgid "Error: Unable to connect to Minecraft. Minecraft may be not running."
+msgstr "エラー: マインクラフトに接続できません。マインクラフトが起動していない可能性があります。"
+
+#: main.py:20
+msgid "Error: Unable to connect to Scratch. Scratch may be not running or the remote sensor connections may be not enabled."
+msgstr "エラー: スクラッチに接続できません。スクラッチが起動していないか、遠隔センサー接続が無効になっている可能性があります。"
+
+#: main.py:23
+msgid "Connected to Scratch"
+msgstr "スクラッチと接続しました"

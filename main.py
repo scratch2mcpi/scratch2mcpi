@@ -1,16 +1,26 @@
 #!/usr/bin/env python
 import sys
+import os
+import gettext
 import scratch
 import mcpi.minecraft as minecraft
 
-mc = minecraft.Minecraft.create()
+localedir = os.path.join(os.path.dirname(__file__), 'locale')
+_ = gettext.translation(domain = 'main', localedir = localedir, fallback = True).ugettext
+
+try:
+  mc = minecraft.Minecraft.create()
+except:
+  print _("Error: Unable to connect to Minecraft. Minecraft may be not running.")
+  sys.exit()
+
 try:
   s = scratch.Scratch()
 except scratch.ScratchError:
-  print "Unable to connect to Scratch. Scratch may be not running or the remote sensor connections may be not enabled." 
+  print _("Error: Unable to connect to Scratch. Scratch may be not running or the remote sensor connections may be not enabled.") 
   sys.exit()
 
-print "Connected to Scratch"
+print _("Connected to Scratch")
 x = 0
 y = 0
 z = 0
