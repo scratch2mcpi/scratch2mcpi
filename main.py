@@ -21,11 +21,16 @@ except scratch.ScratchError:
   sys.exit()
 
 print _("Connected to Scratch")
-x = 0
-y = 0
-z = 0
+mcpiX = 0
+mcpiY = 0
+mcpiZ = 0
 blockTypeId = 1
 blockData = 0
+
+s.broadcast("hi")
+s.broadcast("setPos")
+s.broadcast("setBlock")
+s.broadcast("getPos")
 
 def listen():
   while True:
@@ -39,20 +44,20 @@ for msg in listen():
   if msg[0] == 'broadcast':
     if msg[1] == 'hi':
       mc.postToChat("hi minecraft")
-    elif msg[1] == 'p':
-      mc.player.setPos(x, y, z)
-      print "setPos: %d %d %d" % (x, y, z)
-    elif msg[1] == 'b':
-      mc.setBlock(x, y, z, blockTypeId, blockData)
-      print "setBlock: %d %d %d %d %d" % (x, y, z, blockTypeId, blockData)
-    elif msg[1] == 'gp':
+    elif msg[1] == 'setPos':
+      mc.player.setPos(mcpiX, mcpiY, mcpiZ)
+      print "setPos: %d %d %d" % (mcpiX, mcpiY, mcpiZ)
+    elif msg[1] == 'setBlock':
+      mc.setBlock(mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
+      print "setBlock: %d %d %d %d %d" % (mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
+    elif msg[1] == 'getPos':
       playerPos = mc.player.getPos()
-      s.sensorupdate({'player_x': playerPos.x, 'player_y': playerPos.y, 'player_z': playerPos.z})
+      s.sensorupdate({'playerX': playerPos.x, 'playerY': playerPos.y, 'playerZ': playerPos.z})
   elif msg[0] == 'sensor-update':
-    x = msg[1].get('x', x)
-    y = msg[1].get('y', y)
-    z = msg[1].get('z', z)
-    blockTypeId = msg[1].get('b', blockTypeId)
-    blockData = msg[1].get('d', blockData)
-    print "x:%d,y:%d,z:%d,blockTypeId:%d,blockData:%d" % (x, y, z, blockTypeId, blockData)
+    mcpiX = msg[1].get('mcpiX', mcpiX)
+    mcpiY = msg[1].get('mcpiY', mcpiY)
+    mcpiZ = msg[1].get('mcpiZ', mcpiZ)
+    blockTypeId = msg[1].get('blockTypeId', blockTypeId)
+    blockData = msg[1].get('blockData', blockData)
+    print "mcpiX:%d,mcpiY:%d,mcpiZ:%d,blockTypeId:%d,blockData:%d" % (mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
 
