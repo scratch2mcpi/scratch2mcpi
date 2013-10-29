@@ -8,11 +8,11 @@ import mcpi.minecraft as minecraft
 localedir = os.path.join(os.path.dirname(__file__), 'locale')
 _ = gettext.translation(domain = 'main', localedir = localedir, fallback = True).ugettext
 
-try:
-  mc = minecraft.Minecraft.create()
-except:
-  print _("Error: Unable to connect to Minecraft. Minecraft may be not running.")
-  sys.exit()
+#try:
+#  mc = minecraft.Minecraft.create()
+#except:
+#  print _("Error: Unable to connect to Minecraft. Minecraft may be not running.")
+#  sys.exit()
  
 try:
   s = scratch.Scratch()
@@ -27,7 +27,7 @@ mcpiZ = 0
 blockTypeId = 1
 blockData = 0
 
-s.broadcast("hi")
+s.broadcast("hello_minecraft")
 s.broadcast("setPos")
 s.broadcast("setBlock")
 s.broadcast("getPos")
@@ -42,15 +42,19 @@ def listen():
 for msg in listen():
   print "Received: %s" % str(msg)
   if msg[0] == 'broadcast':
-    if msg[1] == 'hi':
-      mc.postToChat("hi minecraft")
+    if msg[1] == 'hello_minecraft':
+      mc = minecraft.Minecraft.create()
+      mc.postToChat("hello minecraft")
     elif msg[1] == 'setPos':
+      mc = minecraft.Minecraft.create()
       mc.player.setPos(mcpiX, mcpiY, mcpiZ)
       print "setPos: %d %d %d" % (mcpiX, mcpiY, mcpiZ)
     elif msg[1] == 'setBlock':
+      mc = minecraft.Minecraft.create()
       mc.setBlock(mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
       print "setBlock: %d %d %d %d %d" % (mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
     elif msg[1] == 'getPos':
+      mc = minecraft.Minecraft.create()
       playerPos = mc.player.getPos()
       s.sensorupdate({'playerX': playerPos.x, 'playerY': playerPos.y, 'playerZ': playerPos.z})
   elif msg[0] == 'sensor-update':
@@ -59,5 +63,5 @@ for msg in listen():
     mcpiZ = msg[1].get('mcpiZ', mcpiZ)
     blockTypeId = msg[1].get('blockTypeId', blockTypeId)
     blockData = msg[1].get('blockData', blockData)
-    print "mcpiX:%d,mcpiY:%d,mcpiZ:%d,blockTypeId:%d,blockData:%d" % (mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
+    print "mcpiX:%d, mcpiY:%d, mcpiZ:%d, blockTypeId:%d, blockData:%d" % (mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
 
