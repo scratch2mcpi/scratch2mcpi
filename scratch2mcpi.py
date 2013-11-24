@@ -4,6 +4,7 @@ import os
 import gettext
 import scratch
 import mcpi.minecraft as minecraft
+import time
 
 localedir = os.path.join(os.path.dirname(__file__), 'locale')
 _ = gettext.translation(domain = 'main', localedir = localedir, fallback = True).ugettext
@@ -12,6 +13,7 @@ try:
   s = scratch.Scratch()
 except scratch.ScratchError:
   print _("Error: Unable to connect to Scratch. Scratch may be not running or the remote sensor connections may be not enabled.") 
+  time.sleep(5)
   sys.exit()
 
 print _("Connected to Scratch")
