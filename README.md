@@ -1,4 +1,4 @@
-## Scratch2MCPI
+## Scratch2MCPI(Scratch2MinecraftPi)
 
 With Scratch2MCPI, you can control [Minecraft Pi Edition](http://pi.minecraft.net/) from [Scratch](http://scratch.mit.edu) on Raspberry Pi.
 
