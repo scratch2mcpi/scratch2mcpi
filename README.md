@@ -23,6 +23,6 @@ Install Scratch2MCPI
 3. After the world is generated, hit TAB key, then move to Scratch.
 4. Click Green flag, and run the script. "hello minecraft" should be displayed on Minecraft chat window.
 
-## Dependencies
+## Requirements
 
 [scratchpy](https://github.com/pilliq/scratchpy)
