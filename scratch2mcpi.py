@@ -33,7 +33,7 @@ mc = None
 s.broadcast("hello_minecraft")
 s.broadcast("setPos")
 s.broadcast("setBlock")
-s.broadcast("setBlocks")
+# s.broadcast("setBlocks")
 s.broadcast("getPos")
 s.broadcast("getHeight")
 s.broadcast("pollBlockHits")
