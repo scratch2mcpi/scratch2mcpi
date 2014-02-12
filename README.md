@@ -7,13 +7,13 @@ With Scratch2MCPI, you can control [Minecraft Pi Edition](http://pi.minecraft.ne
 Install Minecraft Pi Edition if you have not done. You can either install from http://pi.minecraft.net/?p=68 or use the following installation script.
 
 ```
-# curl http://scratch2mcpi.github.io/install_mcpi.sh | sh 
+# curl http://scratch2mcpi.github.io/mcpi.sh | sh
 ```
 
 Install Scratch2MCPI
 
 ```
-# curl http://scratch2mcpi.github.io/install.sh | sh 
+# curl http://scratch2mcpi.github.io/install.sh | sh
 ```
 
 ## Getting Started
