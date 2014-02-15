@@ -46,6 +46,13 @@ def listen():
     except scratch.ScratchError:
       raise StopIteration
 
+def is_number(mc, variable_name, value):
+  if (isinstance(value, (int, float))):
+    return True
+  else:
+    mc.postToChat("%s must be number." % variable_name)
+    return False
+
 for msg in listen():
   print "Received: %s" % str(msg)
   if msg[0] == 'broadcast':
@@ -54,15 +61,17 @@ for msg in listen():
     if msg[1] == 'hello_minecraft':
       mc.postToChat("hello minecraft")
     elif msg[1] == 'setPos':
-      mc.player.setPos(mcpiX, mcpiY, mcpiZ)
-      print "setPos: %d %d %d" % (mcpiX, mcpiY, mcpiZ)
+      if (is_number(mc, "mcpiX", mcpiX) and is_number(mc, "mcpiY", mcpiY) and is_number(mc, "mcpiZ", mcpiZ)): 
+        mc.player.setPos(mcpiX, mcpiY, mcpiZ)
+        print "setPos: %.1f %.1f %.1f" % (mcpiX, mcpiY, mcpiZ)
     elif msg[1] == 'setBlock':
-      if isinstance(mcpiX, int) and isinstance(mcpiY, int) and isinstance(mcpiZ, int) and isinstance(blockTypeId, int) and isinstance(blockData, int):
-      	mc.setBlock(mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
+      if (is_number(mc, 'mcpiX', mcpiX) and is_number(mc, 'mcpiY', mcpiY) and is_number(mc, 'mcpiZ', mcpiZ) and is_number(mc, 'blockTypeId', blockTypeId) and is_number(mc, 'blockData', blockData)):
+        mc.setBlock(mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
         print "setBlock: %d %d %d %d %d" % (mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
     elif msg[1] == 'setBlocks':
-      mc.setBlocks(mcpiX0, mcpiY0, mcpiZ0, mcpiX1, mcpiY1, mcpiZ1, blockTypeId, blockData)
-      print "setBlocks(%d, %d, %d, %d, %d, %d, %d, %d" % (mcpiX0, mcpiY0, mcpiZ0, mcpiX1, mcpiY1, mcpiZ1, blockTypeId, blockData)
+      if (is_number(mc, 'mcpiX0', mcpiX0) and is_number(mc, 'mcpiY0', mcpiY0) and is_number(mc, 'mcpiZ0', mcpiZ0) and is_number(mc, 'mcpiX1', mcpiX1) and is_number(mc, 'mcpiY1', mcpiY1) and is_number(mc, 'mcpiZ1', mcpiZ1) and is_number(mc, 'blockTypeId', blockTypeId) and is_number(mc, 'blockData', blockData)):
+        mc.setBlocks(mcpiX0, mcpiY0, mcpiZ0, mcpiX1, mcpiY1, mcpiZ1, blockTypeId, blockData)
+        print "setBlocks(%d, %d, %d, %d, %d, %d, %d, %d" % (mcpiX0, mcpiY0, mcpiZ0, mcpiX1, mcpiY1, mcpiZ1, blockTypeId, blockData)
     elif msg[1] == 'getPos':
       playerPos = mc.player.getPos()
       s.sensorupdate(
