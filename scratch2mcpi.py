@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+
+VERSION = "1.0.0"
+
 import sys
 import os
 import gettext
@@ -15,6 +18,11 @@ except scratch.ScratchError:
   print _("Error: Unable to connect to Scratch. Scratch may be not running or the remote sensor connections may be not enabled.") 
   time.sleep(5)
   sys.exit()
+
+print "================="
+print "Sratch2MCPI %s" % VERSION
+print "================="
+print ""
 
 print _("Connected to Scratch")
 
