@@ -17,6 +17,10 @@ except scratch.ScratchError:
   sys.exit()
 
 print _("Connected to Scratch")
+
+mc = minecraft.Minecraft.create()
+mc.postToChat("Scratch2MCPI connected to Minecraft Pi.")
+
 mcpiX = 0
 mcpiY = 0
 mcpiZ = 0
@@ -28,7 +32,6 @@ mcpiY1 = 0
 mcpiZ1 = 0
 blockTypeId = 1
 blockData = 0
-mc = None
 
 s.broadcast("hello_minecraft")
 s.broadcast("setPos")
