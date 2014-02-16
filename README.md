@@ -18,10 +18,9 @@ Install Scratch2MCPI
 
 ## Getting Started
 
-1. On Desktop, double click Scratch2MCPI icon.
-2. On Minecraft, click "Start Game", then "Create New". Wait until the new world is generated.
-3. After the world is generated, hit TAB key, then move to Scratch.
-4. Click Green flag, and run the script. "hello minecraft" should be displayed on Minecraft chat window.
+1. Start Minecraft, click "Start Game", then "Create New". Wait until the new world is generated.
+2. After the world is generated, double click Scratch2MCPI icon to start Scratch and Scratch2MCPI.
+3. On Scratch, click Green flag, and run the script. "hello minecraft" should be displayed on Minecraft chat window.
 
 ## Requirements
 
