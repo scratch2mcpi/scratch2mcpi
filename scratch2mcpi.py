@@ -61,7 +61,6 @@ def is_number(mc, variable_name, value):
   if (isinstance(value, (int, float))):
     return True
   else:
-    mc.postToChat("%s must be number." % variable_name)
     return False
 
 for msg in listen():
