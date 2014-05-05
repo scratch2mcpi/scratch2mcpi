@@ -83,11 +83,11 @@ def listen(s, mc):
             blockEvent = blockEvents[-1]
             s.sensorupdate(
              {'blockEventX': blockEvent.pos.x,
-     	  'blockEventY': blockEvent.pos.y,
-     	  'blockEventZ': blockEvent.pos.z,
-     	  'blockEventFace': blockEvent.face,
-     	  'blockEventEntityId': blockEvent.entityId}
-    	)
+              'blockEventY': blockEvent.pos.y,
+              'blockEventZ': blockEvent.pos.z,
+              'blockEventFace': blockEvent.face,
+              'blockEventEntityId': blockEvent.entityId}
+            )
           else:
             s.sensorupdate(
              {'blockEventX': '',
