@@ -9,7 +9,7 @@ import time
 
 VERSION = "1.0.2"
 localedir = os.path.join(os.path.dirname(__file__), 'locale')
-_ = gettext.translation(domain = 'main', localedir = localedir, fallback = True).ugettext
+_ = gettext.translation(domain = 'scratch2mcpi', localedir = localedir, fallback = True).ugettext
 
 def is_number(mc, variable_name, value):
   if (isinstance(value, (int, float))):
