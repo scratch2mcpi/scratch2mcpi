@@ -10,7 +10,7 @@ import mcstuff.minecraftstuff as stuff
 import mcpi.block as block
 import time
 
-VERSION = "1.0.3a"
+VERSION = "1.0.3"
 localedir = os.path.join(os.path.dirname(__file__), 'locale')
 _ = gettext.translation(domain = 'scratch2mcpi', localedir = localedir, fallback = True).ugettext
 
@@ -24,7 +24,7 @@ def connect():
   try:
     return scratch.Scratch()
   except scratch.ScratchError:
-    print _("Error: Unable to connect to Scratch. Scratch may be not running or the remote sensor connections may be not enabled.") 
+    print _("Error: Unable to connect to Scratch. Scratch may be not running or the remote sensor connections may be not enabled.")
     return None
 
 def _listen(s):
@@ -47,7 +47,8 @@ def listen(s, mc):
   mcpiZ1 = 0
   blockTypeId = 1
   blockData = 0
-  # Minecraft Graphics Turtle(Start)
+
+  # Minecraft Graphics Turtle
   forward = 0
   backward = 0
   right = 0
@@ -63,19 +64,17 @@ def listen(s, mc):
   penBlockData = 0
   mc = minecraft.Minecraft.create()
   pos = mc.player.getPos()
-  steve = turtle.MinecraftTurtle(mc,pos)
+  steve = turtle.MinecraftTurtle(mc, pos)
   stevePos = steve.position
-  # Minecraft Graphics Turtle(End)
-  # Minecraft Stuff(Start)
+
+  # Minecraft Stuff
   radius = 0
   x1 = 0
   y1 = 0
   z1 = 0
   shapePoints = []
   fill = True
-  mcdrawing = stuff.MinecraftDrawing(mc)
-  # Minecraft Stuff(End)
-
+  mcDrawing = stuff.MinecraftDrawing(mc)
 
   for msg in _listen(s):
     if (msg):
@@ -141,28 +140,28 @@ def listen(s, mc):
       elif msg[1] == 'pendown':
         steve.pendown()
         print "steve.pendown"
-      elif msg[1] == 'setHeading':
-        if is_number(mc, 'headingAngle', headingAngle) :
+      elif msg[1] == 'setheading':
+        if is_number(mc, 'headingangle', headingAngle) :
           steve.setheading(headingAngle)
-          print "steve.setHeading: (%d)" % (headingAngle)
-      elif msg[1] == 'setVerticalHeading':
-        if is_number(mc, 'headingAngle', headingAngle) :
+          print "steve.setheading: (%d)" % (headingAngle)
+      elif msg[1] == 'setverticalheading':
+        if is_number(mc, 'headingangle', headingAngle) :
           steve.setverticalheading(headingAngle)
           print "steve.setverticalheading: (%d)" % (headingAngle)
       # Minecraft Graphics Turtle(End)
       # Minecraft Stuff(Start)
       elif msg[1] == 'drawLine':
-        mcdrawing.drawLine(int(x1), int(y1), int(z1), int(turtleX), int(turtleY), int(turtleZ), blockTypeId, blockData)
-        print "mcdrawing.drawLine: (%d, %d, %d, %d, %d, %d, %d, %d)" % (x1, y1, z1, turtleX, turtleY, turtleZ, blockTypeId, blockData)
+        mcDrawing.drawLine(int(x1), int(y1), int(z1), int(turtleX), int(turtleY), int(turtleZ), blockTypeId, blockData)
+        print "mcDrawing.drawLine: (%d, %d, %d, %d, %d, %d, %d, %d)" % (x1, y1, z1, turtleX, turtleY, turtleZ, blockTypeId, blockData)
       elif msg[1] == 'drawSphere':
-        mcdrawing.drawSphere(turtleX, turtleY, turtleZ, radius, blockTypeId, blockData)
-        print "mcdrawing.drawSphere: (%d, %d, %d, %d, %d, %d)" % (turtleX, turtleY, turtleZ, radius, blockTypeId, blockData)
+        mcDrawing.drawSphere(turtleX, turtleY, turtleZ, radius, blockTypeId, blockData)
+        print "mcDrawing.drawSphere: (%d, %d, %d, %d, %d, %d)" % (turtleX, turtleY, turtleZ, radius, blockTypeId, blockData)
       elif msg[1] == 'drawCircle':
-        mcdrawing.drawCircle(turtleX, turtleY, turtleZ, radius, blockTypeId, blockData)
-        print "mcdrawing.drawCircle: (%d, %d, %d, %d, %d, %d)" % (turtleX, turtleY, turtleZ, radius, blockTypeId, blockData)
+        mcDrawing.drawCircle(turtleX, turtleY, turtleZ, radius, blockTypeId, blockData)
+        print "mcDrawing.drawCircle: (%d, %d, %d, %d, %d, %d)" % (turtleX, turtleY, turtleZ, radius, blockTypeId, blockData)
       elif msg[1] == 'resetShapePoints':
         shapePoints = []
-        mcdrawing = stuff.MinecraftDrawing(mc)
+        mcDrawing = stuff.MinecraftDrawing(mc)
       elif msg[1] == 'setShapePoints':
         shapePoints.append(minecraft.Vec3(int(x1), int(y1), int(z1)))
         print "append.shapePoints:"
@@ -172,9 +171,8 @@ def listen(s, mc):
           fillFlag = True
         elif (fill == 'False'):
           fillFlag = False
-          mcdrawing.drawFace(shapePoints, fillFlag, blockTypeId)
-          #print "mcdrawing.drawFace: (%d, %d, %d)" % (shapePoints, fill, blockTypeId )
-          print "mcdrawing.drawFace:"
+          mcDrawing.drawFace(shapePoints, fillFlag, blockTypeId)
+          print "mcDrawing.drawFace:"
           print ' '.join(str(p) for p in shapePoints)
           print(fill)
           print(blockTypeId)
@@ -291,10 +289,10 @@ def main():
       s.broadcast("initTurtle")
       s.broadcast("setPenBlockId")
       s.broadcast("setPenBlockData")
-      s.broadcast("penUp")
-      s.broadcast("penDown")
-      s.broadcast("setHeading")
-      s.broadcast("setVerticalHeading")
+      s.broadcast("penup")
+      s.broadcast("pendown")
+      s.broadcast("setheading")
+      s.broadcast("setverticalheading")
       # Minecraft Graphics Turtle(End)
       # Minecraft Stuff(Start)
       s.broadcast("drawSphere")

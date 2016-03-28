@@ -1,3 +1,4 @@
 1.0.0 - Initial Version (January 1, 2014)
 1.0.1 - Suppress "[Variable Name]" must be a number" error messages on Minecraft Pi (March 26, 2014)
 1.0.2 - Enable to reconnect to Scratch (May 5, 2014)
+1.0.3 - Add MinecraftTurtle/MinecraftStuff commands [by naominix] (March 28, 2016)
