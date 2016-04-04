@@ -56,13 +56,9 @@ def listen(s, mc):
     mc = minecraft.Minecraft.create()
     pos = mc.player.getPos()
     steve = turtle.MinecraftTurtle(mc, pos)
-    stevePos = steve.position
 
     # Minecraft Stuff
     radius = 0
-    x1 = 0
-    y1 = 0
-    z1 = 0
     shapePoints = []
     fill = True
     mcDrawing = stuff.MinecraftDrawing(mc)
@@ -128,23 +124,23 @@ def listen(s, mc):
                         print "steve.setverticalheading: (%d)" % (degrees)
                 # Minecraft Graphics Turtle(End)
                 # Minecraft Stuff(Start)
-                elif msg[1] == 'drawLine':
-                    mcDrawing.drawLine(int(x1), int(y1), int(z1), int(mcpiX), int(mcpiY), int(mcpiZ), blockTypeId, blockData)
-                    print "mcDrawing.drawLine: (%d, %d, %d, %d, %d, %d, %d, %d)" % (x1, y1, z1, mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
-                elif msg[1] == 'drawSphere':
+                elif msg[1] == 'stuff:drawLine':
+                    mcDrawing.drawLine(int(mcpiX1), int(mcpiY1), int(mcpiZ1), int(mcpiX), int(mcpiY), int(mcpiZ), blockTypeId, blockData)
+                    print "mcDrawing.drawLine: (%d, %d, %d, %d, %d, %d, %d, %d)" % (mcpiX1, mcpiY1, mcpiZ1, mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
+                elif msg[1] == 'stuff:drawSphere':
                     mcDrawing.drawSphere(mcpiX, mcpiY, mcpiZ, radius, blockTypeId, blockData)
                     print "mcDrawing.drawSphere: (%d, %d, %d, %d, %d, %d)" % (mcpiX, mcpiY, mcpiZ, radius, blockTypeId, blockData)
                 elif msg[1] == 'drawCircle':
                     mcDrawing.drawCircle(mcpiX, mcpiY, mcpiZ, radius, blockTypeId, blockData)
                     print "mcDrawing.drawCircle: (%d, %d, %d, %d, %d, %d)" % (mcpiX, mcpiY, mcpiZ, radius, blockTypeId, blockData)
-                elif msg[1] == 'resetShapePoints':
+                elif msg[1] == 'stuff:resetShapePoints':
                     shapePoints = []
                     mcDrawing = stuff.MinecraftDrawing(mc)
-                elif msg[1] == 'setShapePoints':
+                elif msg[1] == 'stuff:setShapePoints':
                     shapePoints.append(minecraft.Vec3(int(x1), int(y1), int(z1)))
                     print "append.shapePoints:"
                     print ' '.join(str(p) for p in shapePoints)
-                elif msg[1] == 'drawFace':
+                elif msg[1] == 'stuff:drawFace':
                     if (fill == 'True'):
                         fillFlag = True
                     elif (fill == 'False'):
@@ -155,6 +151,7 @@ def listen(s, mc):
                         print(fill)
                         print(blockTypeId)
                 # Minecraft Stuff(End)
+
                 elif msg[1] == 'setBlocks':
                     if (is_number(mcpiX0) and is_number(mcpiY0) and is_number(mcpiZ0) and is_number(mcpiX1) and is_number(mcpiY1) and is_number(mcpiZ1) and is_number(blockTypeId) and is_number(blockData)):
                         mc.setBlocks(mcpiX0, mcpiY0, mcpiZ0, mcpiX1, mcpiY1, mcpiZ1, blockTypeId, blockData)
@@ -220,9 +217,6 @@ def listen(s, mc):
                 # Minecraft Stuff
                 radius = msg[1].get('radius', radius)
                 fill = msg[1].get('fill', fill)
-                x1 = msg[1].get('x1', x1)
-                y1 = msg[1].get('y1', y1)
-                z1 = msg[1].get('z1', z1)
 
 def main():
     print "================="
@@ -260,14 +254,12 @@ def main():
             s.broadcast("turtle:setheading")
             s.broadcast("turtle:setverticalheading")
 
-            # Minecraft Stuff(Start)
-            s.broadcast("drawSphere")
-            s.broadcast("drawCircle")
-            s.broadcast("drawLine")
-            s.broadcast("drawFace")
-            s.broadcast("resetShapePoints")
-            s.broadcast("setShapePoints")
-            # Minecraft Stuff(End)
+            s.broadcast("stuff:drawSphere")
+            s.broadcast("stuff:drawCircle")
+            s.broadcast("stuff:drawLine")
+            s.broadcast("stuff:drawFace")
+            s.broadcast("stuff:resetShapePoints")
+            s.broadcast("stuff:setShapePoints")
 
             listen(s, mc)
             time.sleep(5)
