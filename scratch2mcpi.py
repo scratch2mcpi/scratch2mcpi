@@ -93,9 +93,6 @@ def listen(s, mc):
                         mc.setBlock(mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
                         print "setBlock: %d %d %d %d %d" % (mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
                 # Minecraft Graphics Turtle(Start)
-                elif msg[1] == 'initTurtle':
-                    steve = turtle.MinecraftTurtle(mc, stevePos)
-                    print "steve.__init__"
                 elif msg[1] == 'setPosTurtle':
                     if (is_number(mc, "turtleX", turtleX) and is_number(mc, "turtleY", turtleY) and is_number(mc, "turtleZ", turtleZ)):
                         steve.setposition(turtleX, turtleY, turtleZ)
@@ -285,7 +282,6 @@ def main():
             s.broadcast("setDown")
             s.broadcast("setSpeed")
             s.broadcast("setPosTurtle")
-            s.broadcast("initTurtle")
             s.broadcast("setPenBlockId")
             s.broadcast("setPenBlockData")
             s.broadcast("penup")
