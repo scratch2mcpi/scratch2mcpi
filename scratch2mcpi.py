@@ -53,8 +53,6 @@ def listen(s, mc):
     steps = 0
     degrees = 0
 
-    penBlockId = block.DIRT.id
-    penBlockData = 0
     mc = minecraft.Minecraft.create()
     pos = mc.player.getPos()
     steve = turtle.MinecraftTurtle(mc, pos)
@@ -114,16 +112,6 @@ def listen(s, mc):
                     if is_number(degrees):
                         steve.down(degrees)
                         print "steve.down: (%d)" % (degrees)
-                elif msg[1] == 'turtle:speed':
-                    if is_number(speed):
-                        steve.speed(speed)
-                        print "steve.speed: (%d)" % (speed)
-                elif msg[1] == 'setPenBlockId':
-                    steve.penblock(penBlockId)
-                    print "steve.penblock: (%s)" % (penBlockId)
-                elif msg[1] == 'setPenBlockData':
-                    steve.penblock(penBlockId, penBlockData)
-                    print "steve.penblock: (%s, %d)" % (penBlockId, penBlockData)
                 elif msg[1] == 'turtle:penup':
                     steve.penup()
                     print "steve.penup"
@@ -221,20 +209,20 @@ def listen(s, mc):
                 mcpiZ1 = msg[1].get('mcpiZ1', mcpiZ1)
                 blockTypeId = msg[1].get('blockTypeId', blockTypeId)
                 blockData = msg[1].get('blockData', blockData)
-                # Minecraft Graphics Turtle(Start)
+
+                # Minecraft Graphics Turtle
+                speed = msg[1].get('speed', speed)
                 steps = msg[1].get('steps', steps)
                 degrees = msg[1].get('degrees', degrees)
-                speed = msg[1].get('speed', speed)
-                penBlockId = msg[1].get('penBlockId', penBlockId)
-                penBlockData = msg[1].get('penBlockData', penBlockData)
-                # Minecraft Graphics Turtle(Start)
-                # Minecraft Stuff(Start)
+                steve.speed(speed)
+                steve.penblock(blockTypeId, blockData)
+
+                # Minecraft Stuff
                 radius = msg[1].get('radius', radius)
                 fill = msg[1].get('fill', fill)
                 x1 = msg[1].get('x1', x1)
                 y1 = msg[1].get('y1', y1)
                 z1 = msg[1].get('z1', z1)
-                # Minecraft Stuff(End)
 
 def main():
     print "================="
@@ -258,23 +246,20 @@ def main():
             s.broadcast("getHeight")
             s.broadcast("pollBlockHits")
             s.broadcast("reset")
-            # Minecraft Graphics Turtle(Start)
+
             s.broadcast("turtle:forward")
             s.broadcast("turtle:backward")
-
             s.broadcast("turtle:right")
             s.broadcast("turtle:left")
             s.broadcast("turtle:up")
             s.broadcast("turtle:down")
             s.broadcast("turtle:speed")
             s.broadcast("turtle:setPos")
-            s.broadcast("setPenBlockId")
-            s.broadcast("setPenBlockData")
             s.broadcast("turtle:penup")
             s.broadcast("turtle:pendown")
             s.broadcast("turtle:setheading")
             s.broadcast("turtle:setverticalheading")
-            # Minecraft Graphics Turtle(End)
+
             # Minecraft Stuff(Start)
             s.broadcast("drawSphere")
             s.broadcast("drawCircle")
