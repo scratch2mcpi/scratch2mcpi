@@ -247,7 +247,6 @@ def main():
             s.broadcast("turtle:left")
             s.broadcast("turtle:up")
             s.broadcast("turtle:down")
-            s.broadcast("turtle:speed")
             s.broadcast("turtle:setPos")
             s.broadcast("turtle:penup")
             s.broadcast("turtle:pendown")
