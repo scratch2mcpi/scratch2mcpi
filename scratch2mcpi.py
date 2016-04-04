@@ -49,14 +49,10 @@ def listen(s, mc):
     blockData = 0
 
     # Minecraft Graphics Turtle
-    steps = 0
-
-    right = 0
-    left = 0
-    up = 0
-    down = 0
     speed = 10
-    headingAngle = 0
+    steps = 0
+    degrees = 0
+
     penBlockId = block.DIRT.id
     penBlockData = 0
     mc = minecraft.Minecraft.create()
@@ -94,32 +90,32 @@ def listen(s, mc):
                     if is_number(mcpiX) and is_number(mcpiY) and is_number(mcpiZ):
                         steve.setposition(mcpiX, mcpiY, mcpiZ)
                         print "tutle:setPos: %.1f %.1f %.1f" % (mcpiX, mcpiY, mcpiZ)
-                elif msg[1] == 'forward':
-                    if is_number(steps) :
+                elif msg[1] == 'turtle:forward':
+                    if is_number(steps):
                         steve.forward(steps)
                         print "steve.forward: (%d)" % (steps)
-                elif msg[1] == 'setBackward':
-                    if is_number(steps) :
+                elif msg[1] == 'turtle:backward':
+                    if is_number(steps):
                         steve.backward(steps)
                         print "steve.backward: (%d)" % (steps)
-                elif msg[1] == 'setRight':
-                    if is_number(mc, 'right', right) :
-                        steve.right(right)
-                        print "steve.right: (%d)" % (right)
-                elif msg[1] == 'setLeft':
-                    if is_number(left) :
-                        steve.left(left)
-                        print "steve.left: (%d)" % (left)
-                elif msg[1] == 'setUp':
-                    if is_number(up) :
-                        steve.up(up)
-                        print "steve.up: (%d)" % (up)
-                elif msg[1] == 'setDown':
-                    if is_number(down) :
-                        steve.down(down)
-                        print "steve.down: (%d)" % (down)
-                elif msg[1] == 'setSpeed':
-                    if is_number(speed) :
+                elif msg[1] == 'turtle:right':
+                    if is_number(degrees):
+                        steve.right(degrees)
+                        print "steve.right: (%d)" % (degrees)
+                elif msg[1] == 'turtle:left':
+                    if is_number(degrees):
+                        steve.left(degrees)
+                        print "steve.left: (%d)" % (degrees)
+                elif msg[1] == 'turtle:up':
+                    if is_number(degrees):
+                        steve.up(degrees)
+                        print "steve.up: (%d)" % (degrees)
+                elif msg[1] == 'turtle:down':
+                    if is_number(degrees):
+                        steve.down(degrees)
+                        print "steve.down: (%d)" % (degrees)
+                elif msg[1] == 'turtle:speed':
+                    if is_number(speed):
                         steve.speed(speed)
                         print "steve.speed: (%d)" % (speed)
                 elif msg[1] == 'setPenBlockId':
@@ -128,20 +124,20 @@ def listen(s, mc):
                 elif msg[1] == 'setPenBlockData':
                     steve.penblock(penBlockId, penBlockData)
                     print "steve.penblock: (%s, %d)" % (penBlockId, penBlockData)
-                elif msg[1] == 'penup':
+                elif msg[1] == 'turtle:penup':
                     steve.penup()
                     print "steve.penup"
-                elif msg[1] == 'pendown':
+                elif msg[1] == 'turtle:pendown':
                     steve.pendown()
                     print "steve.pendown"
-                elif msg[1] == 'setheading':
-                    if is_number(headingAngle) :
-                        steve.setheading(headingAngle)
-                        print "steve.setheading: (%d)" % (headingAngle)
-                elif msg[1] == 'setverticalheading':
-                    if is_number(headingAngle) :
-                        steve.setverticalheading(headingAngle)
-                        print "steve.setverticalheading: (%d)" % (headingAngle)
+                elif msg[1] == 'turtle:setheading':
+                    if is_number(degrees):
+                        steve.setheading(degrees)
+                        print "steve.setheading: (%d)" % (degrees)
+                elif msg[1] == 'turtle:setverticalheading':
+                    if is_number(degrees):
+                        steve.setverticalheading(degrees)
+                        print "steve.setverticalheading: (%d)" % (degrees)
                 # Minecraft Graphics Turtle(End)
                 # Minecraft Stuff(Start)
                 elif msg[1] == 'drawLine':
@@ -228,13 +224,7 @@ def listen(s, mc):
                 # Minecraft Graphics Turtle(Start)
                 steps = msg[1].get('steps', steps)
                 degrees = msg[1].get('degrees', degrees)
-
-                right = msg[1].get('right', right)
-                left = msg[1].get('left', left)
-                up = msg[1].get('up', up)
-                down = msg[1].get('down', down)
                 speed = msg[1].get('speed', speed)
-                headingAngle = msg[1].get('headingAngle', headingAngle)
                 penBlockId = msg[1].get('penBlockId', penBlockId)
                 penBlockData = msg[1].get('penBlockData', penBlockData)
                 # Minecraft Graphics Turtle(Start)
@@ -269,21 +259,21 @@ def main():
             s.broadcast("pollBlockHits")
             s.broadcast("reset")
             # Minecraft Graphics Turtle(Start)
-            s.broadcast("forward")
-            s.broadcast("backward")
+            s.broadcast("turtle:forward")
+            s.broadcast("turtle:backward")
 
-            s.broadcast("setRight")
-            s.broadcast("setLeft")
-            s.broadcast("setUp")
-            s.broadcast("setDown")
-            s.broadcast("setSpeed")
+            s.broadcast("turtle:right")
+            s.broadcast("turtle:left")
+            s.broadcast("turtle:up")
+            s.broadcast("turtle:down")
+            s.broadcast("turtle:speed")
             s.broadcast("turtle:setPos")
             s.broadcast("setPenBlockId")
             s.broadcast("setPenBlockData")
-            s.broadcast("penup")
-            s.broadcast("pendown")
-            s.broadcast("setheading")
-            s.broadcast("setverticalheading")
+            s.broadcast("turtle:penup")
+            s.broadcast("turtle:pendown")
+            s.broadcast("turtle:setheading")
+            s.broadcast("turtle:setverticalheading")
             # Minecraft Graphics Turtle(End)
             # Minecraft Stuff(Start)
             s.broadcast("drawSphere")
