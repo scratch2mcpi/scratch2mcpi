@@ -130,14 +130,14 @@ def listen(s, mc):
                 elif msg[1] == 'stuff:drawSphere':
                     mcDrawing.drawSphere(mcpiX, mcpiY, mcpiZ, radius, blockTypeId, blockData)
                     print "mcDrawing.drawSphere: (%d, %d, %d, %d, %d, %d)" % (mcpiX, mcpiY, mcpiZ, radius, blockTypeId, blockData)
-                elif msg[1] == 'drawCircle':
+                elif msg[1] == 'stuff:drawCircle':
                     mcDrawing.drawCircle(mcpiX, mcpiY, mcpiZ, radius, blockTypeId, blockData)
                     print "mcDrawing.drawCircle: (%d, %d, %d, %d, %d, %d)" % (mcpiX, mcpiY, mcpiZ, radius, blockTypeId, blockData)
                 elif msg[1] == 'stuff:resetShapePoints':
                     shapePoints = []
                     mcDrawing = stuff.MinecraftDrawing(mc)
                 elif msg[1] == 'stuff:setShapePoints':
-                    shapePoints.append(minecraft.Vec3(int(x1), int(y1), int(z1)))
+                    shapePoints.append(minecraft.Vec3(int(mcpiX1), int(mcpiY1), int(mcpiZ1)))
                     print "append.shapePoints:"
                     print ' '.join(str(p) for p in shapePoints)
                 elif msg[1] == 'stuff:drawFace':
@@ -145,11 +145,11 @@ def listen(s, mc):
                         fillFlag = True
                     elif (fill == 'False'):
                         fillFlag = False
-                        mcDrawing.drawFace(shapePoints, fillFlag, blockTypeId)
-                        print "mcDrawing.drawFace:"
-                        print ' '.join(str(p) for p in shapePoints)
-                        print(fill)
-                        print(blockTypeId)
+                    mcDrawing.drawFace(shapePoints, fillFlag, blockTypeId)
+                    print "mcDrawing.drawFace:"
+                    print ' '.join(str(p) for p in shapePoints)
+                    print(fill)
+                    print(blockTypeId)
                 # Minecraft Stuff(End)
 
                 elif msg[1] == 'setBlocks':
