@@ -137,7 +137,7 @@ def listen(s, mc):
                     shapePoints = []
                     mcDrawing = stuff.MinecraftDrawing(mc)
                 elif msg[1] == 'stuff:setShapePoints':
-                    shapePoints.append(minecraft.Vec3(int(mcpiX1), int(mcpiY1), int(mcpiZ1)))
+                    shapePoints.append(minecraft.Vec3(int(mcpiX), int(mcpiY), int(mcpiZ)))
                     print "append.shapePoints:"
                     print ' '.join(str(p) for p in shapePoints)
                 elif msg[1] == 'stuff:drawFace':
