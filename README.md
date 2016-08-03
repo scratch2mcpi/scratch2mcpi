@@ -1,6 +1,12 @@
 ## Scratch2MCPI(Scratch2MinecraftPi)
 
+[日本語の情報](http://scratch2mcpi.github.io/)
+
 With Scratch2MCPI, you can control [Minecraft Pi Edition](http://pi.minecraft.net/) from [Scratch](http://scratch.mit.edu) on Raspberry Pi.
+
+On the latest 2.0, it supports Minecraft Graphics Turtle.
+
+[Demo Movie](https://www.youtube.com/watch?v=w9lkdCEPKWc) on YouTube
 
 ## Installation
 
