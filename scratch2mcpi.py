@@ -168,6 +168,15 @@ def listen(s, mc):
                     posY = mc.getHeight(mcpiX, mcpiZ)
                     s.sensorupdate({'posY': posY})
                     mc.postToChat("posY: %d" % posY)
+                # Added by PhB - Allows inspection of Blocks
+                # BEGIN
+                elif msg[1] == 'getBlock':
+                    blockFound = mc.getBlockWithData(mcpiX, mcpiY, mcpiZ)
+                    s.sensorupdate(
+                        {'blockType': blockFound.id,
+                         'blockDataType': blockFound.data}
+                        )
+                # END
                 elif msg[1] == 'pollBlockHits':
                     blockEvents = mc.events.pollBlockHits()
                     print blockEvents
@@ -194,6 +203,16 @@ def listen(s, mc):
                     mc.setBlocks(-100, -63, -100, 100, -2, 100, 1, 0)
                     mc.setBlocks(-100, -1, -100, 100, -1, 100, 2, 0)
                     mc.player.setPos(0, 0, 0)
+                # Added by PhB - allow for sending messages to MC chat
+                # BEGIN
+                elif (len(msg[1])==4 and msg[1]=='echo') or (len(msg[1])>4 and msg[1][:5]=='echo '):
+                    words = msg[1].split()
+                    if len(words) == 1:
+                        mc.postToChat("echo")
+                        s.broadcast("echo_back") # PhB optional
+                    else:
+                        mc.postToChat(" ".join(words[1:]))
+                 # END
             elif msg[0] == 'sensor-update':
                 mcpiX = msg[1].get('mcpiX', mcpiX)
                 mcpiY = msg[1].get('mcpiY', mcpiY)
@@ -238,6 +257,7 @@ def main():
             # s.broadcast("setBlocks")
             s.broadcast("getPos")
             s.broadcast("getHeight")
+            s.broadcast("getBlock") #added by PhB
             s.broadcast("pollBlockHits")
             s.broadcast("reset")
 
@@ -259,6 +279,14 @@ def main():
             s.broadcast("stuff:drawFace")
             s.broadcast("stuff:resetShapePoints")
             s.broadcast("stuff:setShapePoints")
+            
+            # Added by PhB
+            # BEGIN
+            s.sensorupdate(
+                {'blockType': 0,
+                 'blockDataType': 0}
+                )
+            # END
 
             listen(s, mc)
             time.sleep(5)
