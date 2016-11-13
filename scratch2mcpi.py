@@ -175,10 +175,10 @@ def listen(s, mc):
                     mc.postToChat("posY: %d" % posY)
                 elif msg[1] == 'getBlock':
                     blockFound = mc.getBlockWithData(mcpiX, mcpiY, mcpiZ)
-                    s.sensorupdate(
-                        {'blockType': blockFound.id,
-                         'blockDataType': blockFound.data}
-                        )
+                    s.sensorupdate({
+                        'blockTypeId': blockFound.id,
+                        'blockData': blockFound.data
+                    })
                 elif msg[1] == 'pollBlockHits':
                     blockEvents = mc.events.pollBlockHits()
                     print blockEvents
@@ -278,10 +278,10 @@ def main():
             s.broadcast("stuff:resetShapePoints")
             s.broadcast("stuff:setShapePoints")
 
-            s.sensorupdate(
-                {'blockType': 0,
-                 'blockDataType': 0}
-                )
+            s.sensorupdate({
+                'blockTypeId': 0,
+                'blockData': 0
+            })
 
             listen(s, mc)
             time.sleep(5)
