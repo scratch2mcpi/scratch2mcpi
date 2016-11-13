@@ -55,7 +55,7 @@ def listen(s, mc):
 
     mc = minecraft.Minecraft.create()
     pos = mc.player.getPos()
-    steve = None # Changed by PhB
+    steve = None
 
     # Minecraft Stuff
     radius = 0
@@ -80,53 +80,50 @@ def listen(s, mc):
                         mc.setBlock(mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
                         print "setBlock: %d %d %d %d %d" % (mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
                 # Minecraft Graphics Turtle(Start)
-                # PhB added this to fix issue with Turtle always showing
-                # BEGIN
                 elif msg[1] == 'turtle:activate':
                     if steve == None and is_number(mcpiX) and is_number(mcpiY) and is_number(mcpiZ):
                         steve = turtle.MinecraftTurtle(mc, (mcpiX, mcpiY, mcpiZ))
                     else:
                         steve.setposition(mcpiX, mcpiY, mcpiZ)
-                # END
-                elif msg[1] == 'turtle:setPos' and steve != None: # Changed by PhB
+                elif msg[1] == 'turtle:setPos' and steve != None:
                     if is_number(mcpiX) and is_number(mcpiY) and is_number(mcpiZ):
                         steve.setposition(mcpiX, mcpiY, mcpiZ)
-                        print "turtle:setPos: %.1f %.1f %.1f" % (mcpiX, mcpiY, mcpiZ) # Changed by PhB (spelling error)
-                elif msg[1] == 'turtle:forward' and steve != None: # Changed by PhB
+                        print "turtle:setPos: %.1f %.1f %.1f" % (mcpiX, mcpiY, mcpiZ)
+                elif msg[1] == 'turtle:forward' and steve != None:
                     if is_number(steps):
                         steve.forward(steps)
                         print "steve.forward: (%d)" % (steps)
-                elif msg[1] == 'turtle:backward' and steve != None: # Changed by PhB
+                elif msg[1] == 'turtle:backward' and steve != None:
                     if is_number(steps):
                         steve.backward(steps)
                         print "steve.backward: (%d)" % (steps)
-                elif msg[1] == 'turtle:right' and steve != None: # Changed by PhB
+                elif msg[1] == 'turtle:right' and steve != None:
                     if is_number(degrees):
                         steve.right(degrees)
                         print "steve.right: (%d)" % (degrees)
-                elif msg[1] == 'turtle:left' and steve != None: # Changed by PhB
+                elif msg[1] == 'turtle:left' and steve != None:
                     if is_number(degrees):
                         steve.left(degrees)
                         print "steve.left: (%d)" % (degrees)
-                elif msg[1] == 'turtle:up' and steve != None: # Changed by PhB
+                elif msg[1] == 'turtle:up' and steve != None:
                     if is_number(degrees):
                         steve.up(degrees)
                         print "steve.up: (%d)" % (degrees)
-                elif msg[1] == 'turtle:down' and steve != None: # Changed by PhB
+                elif msg[1] == 'turtle:down' and steve != None:
                     if is_number(degrees):
                         steve.down(degrees)
                         print "steve.down: (%d)" % (degrees)
-                elif msg[1] == 'turtle:penup' and steve != None: # Changed by PhB
+                elif msg[1] == 'turtle:penup' and steve != None:
                     steve.penup()
                     print "steve.penup"
-                elif msg[1] == 'turtle:pendown' and steve != None: # Changed by PhB
+                elif msg[1] == 'turtle:pendown' and steve != None:
                     steve.pendown()
                     print "steve.pendown"
-                elif msg[1] == 'turtle:setheading' and steve != None: # Changed by PhB
+                elif msg[1] == 'turtle:setheading' and steve != None:
                     if is_number(degrees):
                         steve.setheading(degrees)
                         print "steve.setheading: (%d)" % (degrees)
-                elif msg[1] == 'turtle:setverticalheading' and steve != None: # Changed by PhB
+                elif msg[1] == 'turtle:setverticalheading' and steve != None:
                     if is_number(degrees):
                         steve.setverticalheading(degrees)
                         print "steve.setverticalheading: (%d)" % (degrees)
@@ -176,15 +173,12 @@ def listen(s, mc):
                     posY = mc.getHeight(mcpiX, mcpiZ)
                     s.sensorupdate({'posY': posY})
                     mc.postToChat("posY: %d" % posY)
-                # Added by PhB - Allows inspection of Blocks
-                # BEGIN
                 elif msg[1] == 'getBlock':
                     blockFound = mc.getBlockWithData(mcpiX, mcpiY, mcpiZ)
                     s.sensorupdate(
                         {'blockType': blockFound.id,
                          'blockDataType': blockFound.data}
                         )
-                # END
                 elif msg[1] == 'pollBlockHits':
                     blockEvents = mc.events.pollBlockHits()
                     print blockEvents
@@ -211,16 +205,13 @@ def listen(s, mc):
                     mc.setBlocks(-100, -63, -100, 100, -2, 100, 1, 0)
                     mc.setBlocks(-100, -1, -100, 100, -1, 100, 2, 0)
                     mc.player.setPos(0, 0, 0)
-                # Added by PhB - allow for sending messages to MC chat
-                # BEGIN
                 elif (len(msg[1])==4 and msg[1]=='echo') or (len(msg[1])>4 and msg[1][:5]=='echo '):
                     words = msg[1].split()
                     if len(words) == 1:
                         mc.postToChat("echo")
-                        s.broadcast("echo_back") # PhB optional
+                        s.broadcast("echo_back")
                     else:
                         mc.postToChat(" ".join(words[1:]))
-                 # END
             elif msg[0] == 'sensor-update':
                 mcpiX = msg[1].get('mcpiX', mcpiX)
                 mcpiY = msg[1].get('mcpiY', mcpiY)
@@ -238,8 +229,8 @@ def listen(s, mc):
                 speed = msg[1].get('speed', speed)
                 steps = msg[1].get('steps', steps)
                 degrees = msg[1].get('degrees', degrees)
-                
-                if steve != None: # Added by PhB to hide Turtle when not used
+
+                if steve != None:
                     steve.speed(speed)
                     steve.penblock(blockTypeId, blockData)
 
@@ -267,11 +258,11 @@ def main():
             # s.broadcast("setBlocks")
             s.broadcast("getPos")
             s.broadcast("getHeight")
-            s.broadcast("getBlock") #added by PhB
+            s.broadcast("getBlock")
             s.broadcast("pollBlockHits")
             s.broadcast("reset")
 
-            s.broadcast("turtle:activate") # Added by PhB
+            s.broadcast("turtle:activate")
             s.broadcast("turtle:forward")
             s.broadcast("turtle:backward")
             s.broadcast("turtle:right")
@@ -290,14 +281,11 @@ def main():
             s.broadcast("stuff:drawFace")
             s.broadcast("stuff:resetShapePoints")
             s.broadcast("stuff:setShapePoints")
-            
-            # Added by PhB
-            # BEGIN
+
             s.sensorupdate(
                 {'blockType': 0,
                  'blockDataType': 0}
                 )
-            # END
 
             listen(s, mc)
             time.sleep(5)
