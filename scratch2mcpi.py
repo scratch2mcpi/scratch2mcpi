@@ -10,7 +10,7 @@ import mcstuff.minecraftstuff as stuff
 import mcpi.block as block
 import time
 
-VERSION = "2.0.0"
+VERSION = "2.0.1"
 localedir = os.path.join(os.path.dirname(__file__), 'locale')
 _ = gettext.translation(domain = 'scratch2mcpi', localedir = localedir, fallback = True).ugettext
 

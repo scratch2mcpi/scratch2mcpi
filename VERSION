@@ -1,3 +1,12 @@
-1.0.0 - Initial Version (January 1, 2014)
-1.0.1 - Suppress "[Variable Name]" must be a number" error messages on Minecraft Pi (March 26, 2014)
+1.0.0 - Initial Version (Jan. 1, 2014)
+1.0.1 - Suppress "[Variable Name]" must be a number" error messages on Minecraft Pi (Mar. 26, 2014)
 1.0.2 - Enable to reconnect to Scratch (May 5, 2014)
+2.0.0 - Added MinecraftTurtle commands (Jul. 8, 2016)
+
+Based on PR by naominix.
+https://github.com/scratch2mcpi/scratch2mcpi/pull/2
+
+2.0.1 - Added getBlock and echo command (Nov. 13, 2016)
+
+Based on PR by pbierhoff.
+https://github.com/scratch2mcpi/scratch2mcpi/pull/5
