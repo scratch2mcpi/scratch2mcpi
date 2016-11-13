@@ -205,13 +205,9 @@ def listen(s, mc):
                     mc.setBlocks(-100, -63, -100, 100, -2, 100, 1, 0)
                     mc.setBlocks(-100, -1, -100, 100, -1, 100, 2, 0)
                     mc.player.setPos(0, 0, 0)
-                elif (len(msg[1])==4 and msg[1]=='echo') or (len(msg[1])>4 and msg[1][:5]=='echo '):
+                elif msg[1] == 'echo' or msg[1].startswith('echo '):
                     words = msg[1].split()
-                    if len(words) == 1:
-                        mc.postToChat("echo")
-                        s.broadcast("echo_back")
-                    else:
-                        mc.postToChat(" ".join(words[1:]))
+                    mc.postToChat(" ".join(words[1:]))
             elif msg[0] == 'sensor-update':
                 mcpiX = msg[1].get('mcpiX', mcpiX)
                 mcpiY = msg[1].get('mcpiY', mcpiY)
