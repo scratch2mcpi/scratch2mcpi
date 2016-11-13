@@ -55,7 +55,7 @@ def listen(s, mc):
 
     mc = minecraft.Minecraft.create()
     pos = mc.player.getPos()
-    steve = None
+    steve = turtle.MinecraftTurtle(mc, pos)
 
     # Minecraft Stuff
     radius = 0
@@ -80,50 +80,45 @@ def listen(s, mc):
                         mc.setBlock(mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
                         print "setBlock: %d %d %d %d %d" % (mcpiX, mcpiY, mcpiZ, blockTypeId, blockData)
                 # Minecraft Graphics Turtle(Start)
-                elif msg[1] == 'turtle:activate':
-                    if steve == None and is_number(mcpiX) and is_number(mcpiY) and is_number(mcpiZ):
-                        steve = turtle.MinecraftTurtle(mc, (mcpiX, mcpiY, mcpiZ))
-                    else:
-                        steve.setposition(mcpiX, mcpiY, mcpiZ)
-                elif msg[1] == 'turtle:setPos' and steve != None:
+                elif msg[1] == 'turtle:setPos':
                     if is_number(mcpiX) and is_number(mcpiY) and is_number(mcpiZ):
                         steve.setposition(mcpiX, mcpiY, mcpiZ)
                         print "turtle:setPos: %.1f %.1f %.1f" % (mcpiX, mcpiY, mcpiZ)
-                elif msg[1] == 'turtle:forward' and steve != None:
+                elif msg[1] == 'turtle:forward':
                     if is_number(steps):
                         steve.forward(steps)
                         print "steve.forward: (%d)" % (steps)
-                elif msg[1] == 'turtle:backward' and steve != None:
+                elif msg[1] == 'turtle:backward':
                     if is_number(steps):
                         steve.backward(steps)
                         print "steve.backward: (%d)" % (steps)
-                elif msg[1] == 'turtle:right' and steve != None:
+                elif msg[1] == 'turtle:right':
                     if is_number(degrees):
                         steve.right(degrees)
                         print "steve.right: (%d)" % (degrees)
-                elif msg[1] == 'turtle:left' and steve != None:
+                elif msg[1] == 'turtle:left':
                     if is_number(degrees):
                         steve.left(degrees)
                         print "steve.left: (%d)" % (degrees)
-                elif msg[1] == 'turtle:up' and steve != None:
+                elif msg[1] == 'turtle:up':
                     if is_number(degrees):
                         steve.up(degrees)
                         print "steve.up: (%d)" % (degrees)
-                elif msg[1] == 'turtle:down' and steve != None:
+                elif msg[1] == 'turtle:down':
                     if is_number(degrees):
                         steve.down(degrees)
                         print "steve.down: (%d)" % (degrees)
-                elif msg[1] == 'turtle:penup' and steve != None:
+                elif msg[1] == 'turtle:penup':
                     steve.penup()
                     print "steve.penup"
-                elif msg[1] == 'turtle:pendown' and steve != None:
+                elif msg[1] == 'turtle:pendown':
                     steve.pendown()
                     print "steve.pendown"
-                elif msg[1] == 'turtle:setheading' and steve != None:
+                elif msg[1] == 'turtle:setheading':
                     if is_number(degrees):
                         steve.setheading(degrees)
                         print "steve.setheading: (%d)" % (degrees)
-                elif msg[1] == 'turtle:setverticalheading' and steve != None:
+                elif msg[1] == 'turtle:setverticalheading':
                     if is_number(degrees):
                         steve.setverticalheading(degrees)
                         print "steve.setverticalheading: (%d)" % (degrees)
@@ -226,10 +221,6 @@ def listen(s, mc):
                 steps = msg[1].get('steps', steps)
                 degrees = msg[1].get('degrees', degrees)
 
-                if steve != None:
-                    steve.speed(speed)
-                    steve.penblock(blockTypeId, blockData)
-
                 # Minecraft Stuff
                 radius = msg[1].get('radius', radius)
                 fill = msg[1].get('fill', fill)
@@ -258,7 +249,6 @@ def main():
             s.broadcast("pollBlockHits")
             s.broadcast("reset")
 
-            s.broadcast("turtle:activate")
             s.broadcast("turtle:forward")
             s.broadcast("turtle:backward")
             s.broadcast("turtle:right")
