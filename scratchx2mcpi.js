@@ -40,7 +40,7 @@
     };
 
     ext.setBlockTypeId = function(blockName) {
-      [blockTypeId, blockData] = BLOCKS[blockName]
+      [blockTypeId, blockData] = BLOCKS[blockName];
     };
 
     ext.setBlock = function(x, y, z) {
