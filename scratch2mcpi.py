@@ -10,7 +10,7 @@ import mcstuff.minecraftstuff as stuff
 import mcpi.block as block
 import time
 
-VERSION = "2.0.1"
+VERSION = "2.0.2"
 localedir = os.path.join(os.path.dirname(__file__), 'locale')
 _ = gettext.translation(domain = 'scratch2mcpi', localedir = localedir, fallback = True).ugettext
 
@@ -114,6 +114,9 @@ def listen(s, mc):
                 elif msg[1] == 'turtle:pendown':
                     steve.pendown()
                     print "steve.pendown"
+                elif msg[1] == 'turtle:penblock':
+                    steve.penblock(blockTypeId, blockData)
+                    print "steve.penblock: (%d, %d)" % (blockTypeId, blockData)
                 elif msg[1] == 'turtle:setheading':
                     if is_number(degrees):
                         steve.setheading(degrees)
@@ -258,6 +261,7 @@ def main():
             s.broadcast("turtle:setPos")
             s.broadcast("turtle:penup")
             s.broadcast("turtle:pendown")
+            s.broadcast("turtle:penblock")
             s.broadcast("turtle:setheading")
             s.broadcast("turtle:setverticalheading")
 
