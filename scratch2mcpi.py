@@ -114,9 +114,6 @@ def listen(s, mc):
                 elif msg[1] == 'turtle:pendown':
                     steve.pendown()
                     print "steve.pendown"
-                elif msg[1] == 'turtle:penblock':
-                    steve.penblock(blockTypeId, blockData)
-                    print "steve.penblock: (%d, %d)" % (blockTypeId, blockData)
                 elif msg[1] == 'turtle:setheading':
                     if is_number(degrees):
                         steve.setheading(degrees)
@@ -223,6 +220,8 @@ def listen(s, mc):
                 speed = msg[1].get('speed', speed)
                 steps = msg[1].get('steps', steps)
                 degrees = msg[1].get('degrees', degrees)
+                steve.speed(speed)
+                steve.penblock(blockTypeId, blockData)
 
                 # Minecraft Stuff
                 radius = msg[1].get('radius', radius)
@@ -261,7 +260,6 @@ def main():
             s.broadcast("turtle:setPos")
             s.broadcast("turtle:penup")
             s.broadcast("turtle:pendown")
-            s.broadcast("turtle:penblock")
             s.broadcast("turtle:setheading")
             s.broadcast("turtle:setverticalheading")
 
