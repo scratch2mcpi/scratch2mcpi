@@ -28,10 +28,13 @@ def isascii(s):
 #日本語判定
 def is_japanese(string):
     for ch in string:
-        name = unicodedata.name(ch) 
-        if "CJK UNIFIED" in name \
-        or "HIRAGANA" in name \
-        or "KATAKANA" in name:
+        name = unicodedata.east_asian_width(ch) 
+        if "F" in name \
+        or "H" in name \
+        or "W" in name \
+        or "Na" in name \
+        or "A" in name \
+        or "N" in name:
             return True
     return False
 
@@ -384,7 +387,7 @@ class MinecraftDrawing:
             else:
                 print "一文字だけにしてください"
         else:
-            print "ひらがな・カタカナ・漢字にしてください"
+            print "日本語を入力してください"
 
 # MinecraftShape - a class for managing shapes
 class MinecraftShape:
