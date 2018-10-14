@@ -99,7 +99,7 @@
             [" ", "x:%n y:%n z:%n に移動する", "setPos", 0, 0, 0],
             [" ", "x:%n y:%n z:%n にブロックを置く", "setBlock", 0, 0, 0],
             [" ", "x:%n y:%n z:%n に %m.blockNames のブロックを置く", "setBlockWithBlockName", 0, 0, 0, "石"],
-            [" ", "x:%n y:%n z:%n から x:%n y:%n z:%n まで %m.blockNames を置く", "setblocks", 0, 0, 0, 10, 10, 10, "石"]
+            [" ", "x:%n y:%n z:%n から x:%n y:%n z:%n まで %m.blockNames を置く", "setBlocks", 0, 0, 0, 10, 10, 10, "石"]
         ],
         menus: {
             blockNames: Object.keys(BLOCKS)
