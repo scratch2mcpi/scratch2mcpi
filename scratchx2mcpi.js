@@ -28,7 +28,7 @@
       "炎": [51, 0]
     };
     var serverUrl = "http://localhost:8080";
-    var blockTypeId = 1;
+    var blockType = 1;
     var blockData = 0;
 
     ext.reset = function() {
@@ -55,17 +55,26 @@
         });
     };
 
-    ext.setBlockTypeId = function(blockName) {
-      [blockTypeId, blockData] = BLOCKS[blockName];
+    ext.setblockType = function(blockName) {
+      [blockType, blockData] = BLOCKS[blockName];
     };
 
     ext.setBlock = function(x, y, z) {
-        $.get(serverUrl + "/set_block/" + x + "/" + y + "/" + z + "/" + blockTypeId + "/" + blockData, function() {
+        $.get(serverUrl + "/set_block/" + x + "/" + y + "/" + z + "/" + blockType + "/" + blockData, function() {
             console.log("setBlock succeeded");
         }).fail(function() {
             console.log("setBlock failed!");
         });
     };
+
+    ext.setBlocks = function(x0, y0, z0, x1, y1, z1, blockName) {
+      [_blockType, _blockData] = BLOCKS[blockName];
+      $.get(serverUrl + "/set_blocks/" + x0 + "/" + y0 + "/" + z0 + "/" + x1 + "/" + y1 + "/" + z1 + "/" + _blockType + "/" + _blockData, function() {
+          console.log("setBlocks succeeded");
+      }).fail(function() {
+          console.log("setBlocks failed!");
+      });
+    }
 
     ext._getStatus = function() {
         return { status:2, msg:'Ready' };
@@ -77,9 +86,10 @@
         blocks: [
             [" ", "リセットする", "reset"],
             [" ", "%s とチャットで送る", "postToChat", "message"],
-            [" ", "ブロックを %m.blockNames にする", "setBlockTypeId", "石"],
+            [" ", "ブロックを %m.blockNames にする", "setblockType", "石"],
             [" ", "x:%n y:%n z:%n に移動する", "setPos", 0, 0, 0],
             [" ", "x:%n y:%n z:%n にブロックを置く", "setBlock", 0, 0, 0],
+            [" ", "x:%n y:%n z:%n から x:%n y:%n z:%n まで %m.blockNames を置く", "setblocks", "石"]
         ],
         menus: {
             blockNames: Object.keys(BLOCKS)

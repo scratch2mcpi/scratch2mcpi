@@ -39,6 +39,10 @@ class ScratchX2MCPIServer(BaseHTTPRequestHandler):
         mc.setBlock(int(params[0]), int(params[1]), int(params[2]), int(params[3]), int(params[4]))
         return ''
 
+    def setBlocks(self, params):
+        mc.setBlocks(int(params[0]), int(params[1]), int(params[2]), int(params[3]), int(params[4]), int(params[5]), int(params[6]), int(params[7]))
+        return ''
+
     def returnExtension(self, params):
         file = open("scratchx2mcpi.js", "r")
         content = file.read()
@@ -52,6 +56,7 @@ class ScratchX2MCPIServer(BaseHTTPRequestHandler):
             "post_to_chat" : self.postToChat,
             "set_pos" : self.setPos,
             "set_block" : self.setBlock,
+            "set_blocks" : sefl.setBlocks,
             "scratchx2mcpi.js" : self.returnExtension
         }
         parsed_path = urlparse.urlparse(self.path)
