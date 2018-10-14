@@ -56,7 +56,7 @@ class ScratchX2MCPIServer(BaseHTTPRequestHandler):
             "post_to_chat" : self.postToChat,
             "set_pos" : self.setPos,
             "set_block" : self.setBlock,
-            "set_blocks" : sefl.setBlocks,
+            "set_blocks" : self.setBlocks,
             "scratchx2mcpi.js" : self.returnExtension
         }
         parsed_path = urlparse.urlparse(self.path)

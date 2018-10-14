@@ -59,6 +59,15 @@
       [blockType, blockData] = BLOCKS[blockName];
     };
 
+    ext.setBlockWithBlockName = function(x, y, z, blockName) {
+        [_blockType, _blockData] = BLOCKS[blockName];
+        $.get(serverUrl + "/set_block/" + x + "/" + y + "/" + z + "/" + _blockType + "/" + _blockData, function() {
+            console.log("setBlockWithBlockName succeeded");
+        }).fail(function() {
+            console.log("setBlockWithBlockName failed!");
+        });
+    };
+
     ext.setBlock = function(x, y, z) {
         $.get(serverUrl + "/set_block/" + x + "/" + y + "/" + z + "/" + blockType + "/" + blockData, function() {
             console.log("setBlock succeeded");
@@ -85,11 +94,12 @@
     var descriptor = {
         blocks: [
             [" ", "リセットする", "reset"],
-            [" ", "%s とチャットで送る", "postToChat", "message"],
+            [" ", "%s とチャットで送る", "postToChat", "Hello Minecraft"],
             [" ", "ブロックを %m.blockNames にする", "setblockType", "石"],
             [" ", "x:%n y:%n z:%n に移動する", "setPos", 0, 0, 0],
             [" ", "x:%n y:%n z:%n にブロックを置く", "setBlock", 0, 0, 0],
-            [" ", "x:%n y:%n z:%n から x:%n y:%n z:%n まで %m.blockNames を置く", "setblocks", "石"]
+            [" ", "x:%n y:%n z:%n に %m.blockNames のブロックを置く", "setBlockWithBlockName", 0, 0, 0, "石"],
+            [" ", "x:%n y:%n z:%n から x:%n y:%n z:%n まで %m.blockNames を置く", "setblocks", 0, 0, 0, 10, 10, 10, "石"]
         ],
         menus: {
             blockNames: Object.keys(BLOCKS)
