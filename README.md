@@ -8,6 +8,10 @@ On the latest 2.0, it supports Minecraft Graphics Turtle.
 
 [Demo Movie](https://www.youtube.com/watch?v=w9lkdCEPKWc) on YouTube
 
+## Tested Environments
+
+- NOOBS 2.9.0(2018-10-11)
+
 ## Installation
 
 Install Minecraft Pi Edition if you don't have. You can either install from http://pi.minecraft.net/?p=68 or use the following installation script.(If you install Raspbian OS from the latest NOOBS, Minecraft Pi may be pre-installed. If the Minecraft Pi icon exists on the Desktop, skip this step.)
