@@ -2,7 +2,7 @@
 import os
 import glob
 
-MCPI_TEMPLATE = "/home/pi/Documents/Scratch Projects/mcpi_template.sb"
+MCPI_TEMPLATE = os.environ['HOME'] + "/Documents/Scratch Projects/mcpi_template.sb"
 NU_SCRATCH = "/usr/share/scratch/NuScratch*.image"
 SQUEAK_STACK = "/usr/bin/squeak-stack"
 
@@ -33,4 +33,4 @@ else:
      sleep = 30
   os.system("scratch --document \"%s\" & sleep %d" % (MCPI_TEMPLATE, sleep))
 
-os.system("lxterminal -t Scratch2MCPI -e python /home/pi/scratch2mcpi/scratch2mcpi.py")
+os.system("lxterminal -t Scratch2MCPI -e python " + os.environ['HOME'] + "/scratch2mcpi/scratch2mcpi.py")
