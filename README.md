@@ -10,7 +10,8 @@ On the latest 2.0, it supports Minecraft Graphics Turtle.
 
 ## Tested Environments
 
-- NOOBS 2.9.0(2018-10-11)
+- NOOBS 2.9.0 (2018-10-11)
+- Raspberry Pi OS Bullseye (2021-12-8)
 
 ## Installation
 
