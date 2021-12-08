@@ -12,3 +12,5 @@ Based on PR by pbierhoff.
 https://github.com/scratch2mcpi/scratch2mcpi/pull/5
 
 2.0.2 - Fix the bug that updating speed, blockTypeId and blockData did not work (Aug. 7, 2017)
+
+2.1.0 - Support bullseye (Dec. 8, 2021)
