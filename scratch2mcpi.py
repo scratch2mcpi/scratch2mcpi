@@ -59,6 +59,11 @@ def listen(s, mc):
 
     # Minecraft Stuff
     radius = 0
+    ratio = 0
+    alpha = 0
+    beta  = 0
+    gamma = 0
+    letter = "a"
     shapePoints = []
     fill = True
     mcDrawing = stuff.MinecraftDrawing(mc)
@@ -150,6 +155,11 @@ def listen(s, mc):
                     print ' '.join(str(p) for p in shapePoints)
                     print(fill)
                     print(blockTypeId)
+                elif msg[1] == 'stuff:draw_letter':
+                    mcDrawing.draw_letter(mcpiX, mcpiY, mcpiZ, radius, letter, alpha, beta, gamma, ratio, blockTypeId, blockData)
+                    print "mcDrawing.draw_letter: (%d, %d, %d, %d, %s, %d, %d, %d, %d, %d, %d)" % (mcpiX, mcpiY, mcpiZ, radius, letter, alpha, beta, gamma, ratio, blockTypeId, blockData)
+                elif msg[1] == 'stuff:draw_japanese':
+                    mcDrawing.draw_japanese(mcpiX, mcpiY, mcpiZ, radius, letter, alpha, beta, gamma, ratio, blockTypeId, blockData)
                 # Minecraft Stuff(End)
 
                 elif msg[1] == 'setBlocks':
@@ -226,6 +236,11 @@ def listen(s, mc):
                 # Minecraft Stuff
                 radius = msg[1].get('radius', radius)
                 fill = msg[1].get('fill', fill)
+                ratio = msg[1].get('ratio', ratio)
+                alpha = msg[1].get('alpha', alpha)
+                beta = msg[1].get('beta', beta)
+                gamma = msg[1].get('gamma', gamma)
+                letter = msg[1].get('letter', letter)
 
 def main():
     print "================="
@@ -269,6 +284,8 @@ def main():
             s.broadcast("stuff:drawFace")
             s.broadcast("stuff:resetShapePoints")
             s.broadcast("stuff:setShapePoints")
+            s.broadcast("stuff:draw_letter")
+            s.broadcast("stuff:draw_japanese")
 
             s.sensorupdate({
                 'blockTypeId': 0,
